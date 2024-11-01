@@ -1,1 +1,9 @@
-<b>Hello World!</b>
+{{!-- ↓ app レイアウトを呼び出す --}}
+{{#> app}}
+  {{!-- ↓ appレイアウトファイルの、content セクションを埋め込む内容という意味 --}}
+  {{#*inline "content"}}
+  <div class="text-center">
+    Welcome to the Online Store
+  </div>
+  {{/inline}}
+{{/app}}
