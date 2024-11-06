@@ -1,4 +1,3 @@
-import e from 'express';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 // @Entity() 以下に書かれたクラスがRDBMのテーブルにマッピングされる
