@@ -5,16 +5,19 @@ export class AppController {
   @Get('/')
   @Render('index')
   index() {
-    return { title: 'Home Page - Online Store' };
+    let viewData = [];
+    viewData['title'] = 'Home Page - Online Store';
+    return { viewData: viewData };
   }
 
   @Get('/about')
   @Render('about')
   about() {
-    let viewData = [];
+    const viewData = [];
+    viewData['title'] = 'About us - Online Store';
+    viewData['subtitle'] = 'About us';
     viewData['description'] = 'This is an about page...';
     viewData['author'] = 'Developed by: Azumi';
-    let data1 = 'About us - Online Store';
-    return { title: data1, subtitle: 'About us', viewData: viewData };
+    return { viewData: viewData };
   }
 }
