@@ -19,8 +19,9 @@ export class ProductsService {
     return this.productsRepository.find();
   }
 
-  async findOne(id: string): Promise<Product> {
-    return this.productsRepository.findOne(id);
+  // NOTE: テキストのコードを自分で判断して変えているので、エラーが出たらここを見直す
+  async findOne(id: number): Promise<Product> {
+    return this.productsRepository.findOne({ where: { id } });
   }
 
   // async create(product: Product): Promise<Product> {

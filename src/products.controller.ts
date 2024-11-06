@@ -1,58 +1,32 @@
-import { Controller, Get, Render, Param } from '@nestjs/common';
+import { Controller, Get, Render, Param, Res } from '@nestjs/common';
+import { ProductsService } from './models/products.service';
 
 // NOTE: ('/products')の部分は、このコントローラー配下にある全てのルートは/productsで始まるという指示
 @Controller('/products')
 export class ProductsController {
-  // NOTE: staticで定義することで、ProductsController.productsのようにClass名.変数名でアクセスできる
-  static products = [
-    {
-      id: '1',
-      name: 'TV',
-      description: 'Best tv',
-      image: 'game.png',
-      price: '1000',
-    },
-    {
-      id: '2',
-      name: 'iPhone',
-      description: 'Best iPhone',
-      image: 'safe.png',
-      price: '999',
-    },
-    {
-      id: '3',
-      name: 'Chromecast',
-      description: 'Best Chromecast',
-      image: 'submarine.png',
-      price: '30',
-    },
-    {
-      id: '4',
-      name: 'Glasses',
-      description: 'Best Glasses',
-      image: 'game.png',
-      price: '100',
-    },
-  ];
+  constructor(private readonly productsService: ProductsService) {}
 
   @Get('/')
   @Render('products/index')
-  index() {
+  async index() {
     const viewData = [];
     viewData['title'] = 'Products - Online Store';
     viewData['subtitle'] = 'List of Products';
-    viewData['products'] = ProductsController.products;
+    viewData['products'] = await this.productsService.findAll();
     return { viewData: viewData };
   }
 
   @Get('/:id')
   @Render('products/show')
-  show(@Param() params) {
-    const product = ProductsController.products[params.id - 1];
+  async show(@Param() params, @Res() response) {
+    const product = await this.productsService.findOne(params.id);
+    if (!product) {
+      return response.redirect('/products');
+    }
     const viewData = [];
     viewData['title'] = product.name + ' - Online Store';
     viewData['subtitle'] = product.name + ' - Product Information';
     viewData['product'] = product;
-    return { viewData: viewData };
+    return response.render('products/show', { viewData: viewData });
   }
 }
