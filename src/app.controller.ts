@@ -5,7 +5,7 @@ export class AppController {
   @Get('/')
   @Render('index')
   index() {
-    let viewData = [];
+    const viewData = [];
     viewData['title'] = 'Home Page - Online Store';
     return { viewData: viewData };
   }
