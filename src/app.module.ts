@@ -4,6 +4,7 @@ import { ProductsController } from './products.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductsService } from './models/products.service';
 import { Product } from './models/product.entity';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   // NOTE: TypeOrmModule.forRoot()に何も引数を渡さない場合、ormconfig.jsonを読み込むとテキストには書いてあったが、実際にはエラーになったので直接書いている
@@ -20,6 +21,7 @@ import { Product } from './models/product.entity';
     }),
     // NOTE: この設定により、ProductsServiceクラス内でproductsRepositoryを使ってProductエンティティに対するCRUD操作を行うことができます。
     TypeOrmModule.forFeature([Product]),
+    AdminModule,
   ],
   controllers: [AppController, ProductsController],
   // NOTE: providersにProductsServiceを追加することでアプリ全体でProductsServiceを使えるようにしている
