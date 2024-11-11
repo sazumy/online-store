@@ -24,16 +24,7 @@ export class ProductsService {
     return this.productsRepository.findOne({ where: { id } });
   }
 
-  // async create(product: Product): Promise<Product> {
-  //   return this.productsRepository.save(product);
-  // }
-
-  // async update(id: string, product: Product): Promise<Product> {
-  //   await this.productsRepository.update(id, product);
-  //   return this.productsRepository.findOne(id);
-  // }
-
-  // async remove(id: string): Promise<void> {
-  //   await this.productsRepository.delete(id);
-  // }
+  async createOrUpdate(product: Product): Promise<Product> {
+    return this.productsRepository.save(product);
+  }
 }
