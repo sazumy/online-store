@@ -3,8 +3,11 @@ import { AppController } from './app.controller';
 import { ProductsController } from './products.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductsService } from './models/products.service';
+import { UsersService } from './models/users.service';
 import { Product } from './models/product.entity';
+import { User } from './models/user.entity';
 import { AdminModule } from './admin/admin.module';
+import { AuthModule } from './auth/auth.module';
 
 //NOTE: @Global()デコレータを使用することで、このモジュールがグローバルスコープで利用可能になります。
 @Global()
@@ -22,13 +25,14 @@ import { AdminModule } from './admin/admin.module';
       synchronize: true,
     }),
     // NOTE: この設定により、ProductsServiceクラス内でproductsRepositoryを使ってProductエンティティに対するCRUD操作を行うことができます。
-    TypeOrmModule.forFeature([Product]),
+    TypeOrmModule.forFeature([Product, User]),
     AdminModule,
+    AuthModule,
   ],
   controllers: [AppController, ProductsController],
   // NOTE: providersにProductsServiceを追加することでアプリ全体でProductsServiceを使えるようにしている
-  providers: [ProductsService],
+  providers: [ProductsService, UsersService],
   // NOTE: exportsにProductsServiceを追加することで他のモジュールからProductsServiceを使えるようにしている
-  exports: [ProductsService],
+  exports: [ProductsService, UsersService],
 })
 export class AppModule {}
