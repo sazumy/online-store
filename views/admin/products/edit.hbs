@@ -5,6 +5,13 @@
         Edit Product
       </div>
       <div class="card-body">
+        {{#if flashErrors}}
+          {{#each flashErrors}}
+            <p class="alert alert-danger" role="alert">
+              {{this}}
+            </p>
+          {{/each}}
+        {{/if}}
         {{#with viewData.product}}
         <form method="POST" action="/admin/products/{{getId}}/update" enctype="multipart/form-data">
           <div class="row">
