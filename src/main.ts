@@ -23,6 +23,12 @@ async function bootstrap() {
   );
   app.use(function (req, res, next) {
     res.locals.session = req.session;
+    const flashErrors: string[] = req.session.flashErrors;
+    if (flashErrors) {
+      // この2行のコードは、全体としてエラーメッセージは一度だけ表示され、次のリクエストでは表示されないようにしている
+      res.locals.flashErrors = flashErrors; // res.localは現在のリクエストに対して一時的なデータを保持するために使用される
+      req.session.flashErrors = null; // req.sessionは、セッションデータを保持するために使用されます。
+    }
     next(); // 次のミドルウェア関数に制御を渡す。next()を呼び出さないと、リクエストはそこで止まり、次のミドルウェアやルートハンドラーに進むことができない。
   });
 
