@@ -8,6 +8,7 @@ import { Product } from './models/product.entity';
 import { User } from './models/user.entity';
 import { AdminModule } from './admin/admin.module';
 import { AuthModule } from './auth/auth.module';
+import { CartModule } from './cart/cart.module';
 
 //NOTE: @Global()デコレータを使用することで、このモジュールがグローバルスコープで利用可能になります。
 @Global()
@@ -28,6 +29,7 @@ import { AuthModule } from './auth/auth.module';
     TypeOrmModule.forFeature([Product, User]),
     AdminModule,
     AuthModule,
+    CartModule,
   ],
   controllers: [AppController, ProductsController],
   // NOTE: providersにProductsServiceを追加することでアプリ全体でProductsServiceを使えるようにしている

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 // NOTE: TypeORMのRepositoryクラスは, entity（今回はproduct）に対するCRUD操作を提供する
-import { Repository } from 'typeorm';
+import { Repository, In } from 'typeorm';
 import { Product } from './product.entity';
 
 // NOTE: @Injectable() デコレータを使うことで、このクラスが依存性注入（DI）システムに登録され、他のクラスで注入（インジェクト）できるようになります。
@@ -30,5 +30,9 @@ export class ProductsService {
 
   async remove(id: string): Promise<void> {
     await this.productsRepository.delete(id);
+  }
+
+  findByIds(ids: string[]): Promise<Product[]> {
+    return this.productsRepository.findBy({ id: In(ids) });
   }
 }
