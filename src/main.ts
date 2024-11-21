@@ -32,6 +32,14 @@ async function bootstrap() {
     next(); // 次のミドルウェア関数に制御を渡す。next()を呼び出さないと、リクエストはそこで止まり、次のミドルウェアやルートハンドラーに進むことができない。
   });
 
+  app.use('/admin', function (req, res, next) {
+    if (req.session.user && req.session.user.role === 'admin') {
+      next();
+    } else {
+      res.redirect('/');
+    }
+  });
+
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
