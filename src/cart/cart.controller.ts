@@ -68,9 +68,11 @@ export class CartController {
   async purchase(@Req() request, @Res() response) {
     // NOTE: ユーザーがログインしているか、商品がカートに入っているかどうか確認
     if (!request.session.user) {
-      return response.redirect('/auth/login');
+      response.redirect('/auth/login');
+      return; // ここでreturnを追加
     } else if (!request.session.products) {
-      return response.redirect('/cart');
+      response.redirect('/cart');
+      return; // ここでreturnを追加
     } else {
       const user = await this.usersService.findOne(request.session.user.id);
       // NOTE: セッションの商品情報からカートの商品情報を取得
