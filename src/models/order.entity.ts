@@ -23,7 +23,7 @@ export class Order {
   @ManyToOne(() => User, (user) => user.orders)
   user: User;
 
-  @OneToMany(() => Item, (item) => item.order)
+  @OneToMany(() => Item, (item) => item.order, { cascade: ['insert'] })
   items: Item[];
 
   getId(): number {

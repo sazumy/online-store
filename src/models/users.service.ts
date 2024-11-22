@@ -30,4 +30,13 @@ export class UsersService {
     }
     return null;
   }
+
+  // NOTE: テキストでは id: string だったが、id: number にしているので、もしエラーが出たらここを疑う
+  findOne(id: number): Promise<User> {
+    return this.usersRepository.findOne({ where: { id } });
+  }
+
+  updateBalance(id: number, balance: number) {
+    return this.usersRepository.update(id, { balance });
+  }
 }
