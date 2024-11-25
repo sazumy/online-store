@@ -11,6 +11,7 @@ import { Order } from './models/order.entity';
 import { AdminModule } from './admin/admin.module';
 import { AuthModule } from './auth/auth.module';
 import { CartModule } from './cart/cart.module';
+import { AccountModule } from './account/account.module';
 
 //NOTE: @Global()デコレータを使用することで、このモジュールがグローバルスコープで利用可能になります。
 @Global()
@@ -32,6 +33,7 @@ import { CartModule } from './cart/cart.module';
     AdminModule,
     AuthModule,
     CartModule,
+    AccountModule,
   ],
   controllers: [AppController, ProductsController],
   // NOTE: providersにProductsServiceを追加することでアプリ全体でProductsServiceを使えるようにしている
