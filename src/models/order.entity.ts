@@ -42,8 +42,8 @@ export class Order {
     this.total = total;
   }
 
-  gatDate(): Date {
-    return this.date;
+  getDate(): string {
+    return this.date.toISOString().split('T')[0];
   }
 
   setDate(date: Date): void {
